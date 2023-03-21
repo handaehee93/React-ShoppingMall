@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {HiShoppingBag} from 'react-icons/hi'
 import {GiClothes} from 'react-icons/gi'
-import { login } from "../api/firebase";
-// import firebase from '../api/firebase'
+import { login, logout, onUserStateChange } from "../api/firebase";
+
 
 export default function Navbar() {
+  const [user, setUser] = useState()
+  const handleLogin = () => {
+    login().then(user=> setUser(user))  
+  }
+  const handleLogout = () => {
+    logout().then(user=> setUser(user))  
+  }
+  useEffect(()=>{
+    onUserStateChange((user) => {
+      setUser(user)
+    })
+  },[])
   return (
     <header className='flex justify-between border-b border-gray-300 p-2'>
       <Link to='/' className='flex items-center text-3xl text-logo'>
@@ -18,8 +30,11 @@ export default function Navbar() {
         <Link to='/products/new' className='text-2xl'>
           <GiClothes/>
         </Link>
-        <button onClick={login}>Login</button>
+        {!user && <button onClick={handleLogin}>Login</button>}
+        {user && <button onClick={handleLogout}>LogOut</button>}
       </nav>
     </header>
   )
 }
+
+
