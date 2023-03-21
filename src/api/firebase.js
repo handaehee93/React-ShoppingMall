@@ -21,9 +21,9 @@ const provider = new GoogleAuthProvider();
   export function login() {
     signInWithPopup(auth, provider)
       .then((result) => {
-
         const user = result.user;
         console.log(user)
       })
       .catch(console.error);
   }
+
