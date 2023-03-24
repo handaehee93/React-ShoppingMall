@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import {HiShoppingBag} from 'react-icons/hi'
 import {GiClothes} from 'react-icons/gi'
 import { login, logout, onUserStateChange } from "../api/firebase";
-
+import UserInfo from './UserInfo';
 
 export default function Navbar() {
   const [user, setUser] = useState()
+  console.log(user)
   const handleLogin = () => {
     login().then(user=> setUser(user))  
   }
@@ -30,6 +31,7 @@ export default function Navbar() {
         <Link to='/products/new' className='text-2xl'>
           <GiClothes/>
         </Link>
+        {user && <UserInfo user={user}/>}
         {!user && <button onClick={handleLogin}>Login</button>}
         {user && <button onClick={handleLogout}>LogOut</button>}
       </nav>
