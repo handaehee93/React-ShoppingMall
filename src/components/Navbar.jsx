@@ -7,7 +7,7 @@ import UserInfo from './UserInfo';
 
 export default function Navbar() {
   const [user, setUser] = useState()
-  console.log(user)
+  // console.log(user)
   const handleLogin = () => {
     login().then(user=> setUser(user))  
   }
@@ -16,6 +16,7 @@ export default function Navbar() {
   }
   useEffect(()=>{
     onUserStateChange((user) => {
+      console.log(user)
       setUser(user)
     })
   },[])
