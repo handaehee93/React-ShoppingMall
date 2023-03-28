@@ -4,6 +4,8 @@ import {HiShoppingBag} from 'react-icons/hi'
 import {AiFillEdit} from 'react-icons/ai'
 import { login, logout, onUserStateChange } from "../api/firebase";
 import UserInfo from './UserInfo';
+import Button from './ui/Button';
+
 
 export default function Navbar() {
   const [user, setUser] = useState()
@@ -33,8 +35,8 @@ export default function Navbar() {
           {user && user.isAdmin && <AiFillEdit/>}
         </Link>
         {user && <UserInfo user={user}/>}
-        {!user && <button onClick={handleLogin}>Login</button>}
-        {user && <button onClick={handleLogout}>LogOut</button>}
+        {!user && <Button text={'Login'} onClick={handleLogin} />}
+        {user && <Button text={'Logout'} onClick={handleLogout} />}
       </nav>
     </header>
   )
