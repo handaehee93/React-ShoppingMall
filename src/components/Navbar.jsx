@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {HiShoppingBag} from 'react-icons/hi'
-import {GiClothes} from 'react-icons/gi'
+import {AiFillEdit} from 'react-icons/ai'
 import { login, logout, onUserStateChange } from "../api/firebase";
 import UserInfo from './UserInfo';
 
@@ -30,7 +30,7 @@ export default function Navbar() {
         <Link to='/products'>상품</Link>
         <Link to='/carts'>장바구니</Link>
         <Link to='/products/new' className='text-2xl'>
-          <GiClothes/>
+          {user && user.isAdmin && <AiFillEdit/>}
         </Link>
         {user && <UserInfo user={user}/>}
         {!user && <button onClick={handleLogin}>Login</button>}
