@@ -18,18 +18,16 @@ const provider = new GoogleAuthProvider();
 
 
 
-  export async function login() {
-    return signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        // console.log(user)
-        return user
-      })
+  export   function login() {
+      signInWithPopup(auth, provider)
       .catch(console.error);
   }
 
-  export async function logout() {
-    return signOut(auth).then(()=> null)
+
+  export  function logout() {
+      signOut(auth)
+      .catch(console.error);
+
   }
 
   // async를 붙여 비동기로 실행을 하고, 비동기로 데이터를 다 가져 왔다면 await 실행
