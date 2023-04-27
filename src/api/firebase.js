@@ -34,10 +34,10 @@ const provider = new GoogleAuthProvider();
   export function onUserStateChange(callback) {
     onAuthStateChanged(auth, async (user) => {
       const updatedUser = user ? await adminuser(user) : null
-
       callback(updatedUser)
     });
   }
+
 
   const database = getDatabase(app)
 // adminuser함수는 firebase의 database에서 data를 가져온다, 즉 네트워크 통신이 이루어지기 때문에 비동기 처리를 위해 async를 붙여 준다.
@@ -53,6 +53,7 @@ const provider = new GoogleAuthProvider();
     })
   }
 
+  // firebase에 새로운 제품을 등록하는 함수
   export async function addNewProduct(product, imageURL) {
     const id = uuid()
     set(ref(database, `products/${id}`), {
@@ -61,4 +62,15 @@ const provider = new GoogleAuthProvider();
       price: parseInt(product.price),
       image: imageURL
     })
+  }
+
+  // firebase에 저장된 데이터를 불러오는 함수
+  export async function getProducts () {
+    return get(ref(database, 'products'))
+      .then(snapshot => {
+        if(snapshot.exists()) {
+          return Object.values(snapshot.val())
+        }
+        return []
+      })
   }
