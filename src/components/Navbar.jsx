@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { HiShoppingBag } from 'react-icons/hi'
+import React from 'react'
+import { FaDog } from 'react-icons/fa'
 import { AiFillEdit } from 'react-icons/ai'
-import { login, logout, onUserStateChange } from "../api/firebase";
+import { Link } from 'react-router-dom'
 import UserInfo from './UserInfo';
 import Button from './ui/Button';
-import { useAuthContext } from './context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
+import Cart from './Cart';
+
+
 
 
 export default function Navbar() {
+  // contextProvider에 전달된 props를 받아 온 것
   const {user, login, logout} = useAuthContext()
-  // const [user, setUser] = useState()
-  // console.log(user)
 
-  // useEffect(()=>{
-  //   onUserStateChange((user) => {
-  //     console.log(user)
-  //     setUser(user)
-  //   })
-  // },[])
+
   return (
-    <header className='flex justify-between border-b border-gray-300 p-2'>
-      <Link to='/' className='flex items-center text-3xl text-logo'>
-        <HiShoppingBag />
-        <h1>뉴이어</h1>
+    <header className='flex justify-between border-b border-gray-300 p-4'>
+      <Link to='/' className='flex items-center font-semibold text-4xl  text-logo'>
+        <FaDog />
+        <h1>KaKao Dog</h1>
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>상품</Link>
-        {user && <Link to='/carts'>장바구니</Link>}
-        <Link to='/products/new' className='text-2xl'>
+        {user && <Link to='/carts'><Cart /></Link>}
+        <Link to='/products/new' className='text-3xl'>
           {user && user.isAdmin && <AiFillEdit />}
         </Link>
+        {/* 로그인된 사용자의 정보는 user라는 state에 담기고, 따라서 user에 값이 있으면 로그인이 된 상태, user에 값이 없으면 로그 아웃 상태 이므로 각각의 상태에 따라 보여지는 ui가 다르게 설정 한 것 */}
         {user && <UserInfo user={user} />}
         {!user && <Button text={'Login'} onClick={login} />}
         {user && <Button text={'Logout'} onClick={logout} />}

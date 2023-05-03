@@ -5,11 +5,11 @@ export default function Banner() {
     <div className='h-96 bg-blue-200 relative'>
       <div className='w-full h-full bg-cover bg-banner opacity-70' />
       <div className='absolute w-full top-32 text-center text-gray-50 '>
-        <h2 className='text-6xl'>High Quality, Best Product</h2>
-        <p className='text-2xl'>그릇</p>
+        <h2 className='text-6xl'>Welcome to KaKao Dog!</h2>
       </div>
     </div>
   )
 }
+
 
 
