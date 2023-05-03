@@ -9,10 +9,10 @@ export default function ProductDetail() {
     product: {id, image, title, category,price, description, options }
   }} = useLocation()
 
-  const {user : uid} = useAuthContext()
+  const {user } = useAuthContext()
   const handleClick = () => {
     const cart = {id, image, title, price, quantity: 1 }
-    AddUpdateToCart(uid, cart)
+    AddUpdateToCart(user.uid, cart)
   }
   return (
     <div>
