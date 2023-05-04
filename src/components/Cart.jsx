@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { getCart } from '../api/firebase'
 import { useAuthContext } from '../context/AuthContext'
+import useQueryCart from '../hooks/useQueryCart'
 
 export default function Cart() {
   const { user } = useAuthContext()
-  const {data: products} = useQuery(['carts'], () => getCart(user.uid))
+  // const {data: products} = useQuery(['carts'], () => getCart(user.uid))
+  const { cartQuery: {data: products}} = useQueryCart()
   return (
     <div className='relative'>
       장바구니

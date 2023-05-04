@@ -1,9 +1,10 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import { AddUpdateToCart } from '../api/firebase'
 import {useAuthContext} from '../context/AuthContext'
 export default function ProductDetail() {
+  const navigate = useNavigate()
   // useLoacation을 활용하여 useParam으로 전달된 state를 받아 옴
   const {state: {
     product: {id, image, title, category,price, description, options }
@@ -13,6 +14,11 @@ export default function ProductDetail() {
   const handleClick = () => {
     const cart = {id, image, title, price, quantity: 1 }
     AddUpdateToCart(user.uid, cart)
+    const answer = window.confirm(`상품이 장바구니에 담겼습니다.
+    장바구니로 이동시하겠습니까?`)
+    if( answer === true ) {
+      navigate('/carts')
+    }
   }
   return (
     <div>

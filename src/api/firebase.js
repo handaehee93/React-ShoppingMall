@@ -111,6 +111,6 @@ const auth = getAuth();
 
 
   // firebase의 장바구니의 목록을 삭제하는 함수
-  export async function removeFromCart (id, product) {
-    return remove(ref(database, `carts/${id}/${product.id}`))
+  export async function removeFromCart (id, productId) {
+    return remove(ref(database, `carts/${id}/${productId}`))
   }

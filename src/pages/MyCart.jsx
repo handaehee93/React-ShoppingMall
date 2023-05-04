@@ -5,10 +5,12 @@ import { getCart } from '../api/firebase'
 import CartItem from '../components/CartItem';
 import Price from '../components/Price';
 import Button from '../components/ui/Button';
+import useQueryCart from '../hooks/useQueryCart';
 
 export default function MyCart() {
   const { user } = useAuthContext()
-  const {data: products} = useQuery(['carts'], () => getCart(user.uid))
+  // const {data: products} = useQuery(['carts'], () => getCart(user.uid))
+  const {cartQuery:{data: products}} = useQueryCart()
   const hasCart = products.length > 0 
   const totalPrice = products && products.reduce((acc, cur) => {
     return acc + parseInt(cur.price) * cur.quantity

@@ -2,22 +2,23 @@ import React from 'react'
 import { AddUpdateToCart } from '../api/firebase'
 import { removeFromCart } from '../api/firebase'
 import Button from './ui/Button'
+import useQueryCart from '../hooks/useQueryCart'
 
 export default function CartItem({product, user}) {
   const {id, image, title, quantity, price} = product
-
+  const {updateCart, removeCart} = useQueryCart()
   const handlePlus = () => {
-    AddUpdateToCart(user.uid, {...product, quantity: quantity +1})
+    updateCart.mutate( {...product, quantity: quantity +1})
 
   }
   const handleMinus = () => {
     if(quantity < 2) {
       return
     }
-    AddUpdateToCart(user.uid, {...product, quantity: quantity -1})
+    updateCart.mutate({...product, quantity: quantity -1})
   }
   const handleDelete = () => {
-    removeFromCart(user.uid, id)
+    removeCart.mutate(id)
   }
   return (
     <li className='flex justify-between my-2 items-center'>
