@@ -22,7 +22,7 @@ export default function Navbar() {
         <h1>Shopping Mall</h1>
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
-        <Link to='/products'>상품ㅇㅇ</Link>
+        <Link to='/products'>상품ㅇㅇㅇ</Link>
         {/* <div>카테고리리리</div> */}
         {user && <Link to='/carts'><Cart /></Link>}
         <Link to='/products/new' className='text-3xl'>
