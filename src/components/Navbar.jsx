@@ -23,7 +23,7 @@ export default function Navbar() {
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>상품</Link>
-        <div>카테고리</div>
+        {/* <div>카테고리</div> */}
         {user && <Link to='/carts'><Cart /></Link>}
         <Link to='/products/new' className='text-3xl'>
           {user && user.isAdmin && <AiFillEdit />}
