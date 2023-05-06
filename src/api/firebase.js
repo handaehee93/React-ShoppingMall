@@ -11,35 +11,31 @@ const firebaseConfig = {
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 };
 
-
 // 가져온 firebase앱을 초기화 해준 것, 개발에서 초기화 란 초기값을 할당을 해주는 것을 의미한다.
 const app = initializeApp(firebaseConfig);
 
-
-// 구글 로그인을 위해 구글 provider를 초기화 해준 것
+// 로그인
+// 1. 구글 로그인을 위해 구글 provider를 초기화 해준 것
 const provider = new GoogleAuthProvider();
-// auth를 가져 온 다음
+
+// 2. auth를 가져 온 다음
 const auth = getAuth();
 
-// singInWithPopup에 가져온 auth와 provider를 인자로 넣어주면 된다.
-
+// 3. singInWithPopup에 가져온 auth와 provider를 인자로 넣어주면 된다.
   export function login() {
     signInWithPopup(auth, provider)
-    // 콜백함수에서 전달하는 인자와 콜백함수에서 호출하는 인자가 같을 때 즉, (error) => console.(error) 일때는 아래 처럼 생략이 가능하다.
+// 함수에서 전달하는 인자와 함수에서 호출하는 인자가 같을 때 즉, (error) => console.error(error) 일때는 아래 처럼 생략이 가능하다.
     .catch(console.error);
 }
 
-
-
-
-
+// 로그 아웃
   export  function logout() {
       signOut(auth)
       .catch(console.error);
-
   }
 
-  // 로그인된 사용자의 정보를 기억하기 위해 onAuthStateChanged를 사용하기 위해 함수를 만들어 준 것. async를 붙여 비동기로 실행을 하고, 비동기로 데이터를 다 가져 왔다면 await 실행
+
+  // 로그인된 사용자의 정보를 기억하기 위해 onAuthStateChanged를 사용할려고 함수를 만들어 준 것. async를 붙여 비동기로 실행을 하고, 비동기로 데이터를 다 가져 왔다면 await 실행
   // 사용자가 로그인 상태가 변경이 되면 user정보가 onAuthStateChanged에 전달이 되고, user정보가 있다면 즉, 로그인을 했다면 adminUser함수를 호출해서 사용자가 admin인지 아닌지 까지 검사를 해준다.
   // 사용자가 admin이면 adminUser함수에서 isAdmin이 추가된 객체가 리턴이 되므로, 해당 객체로 다시 user의 상태를 업데이트 해준다.
   export function onUserStateChange(callback) {
@@ -85,7 +81,7 @@ const auth = getAuth();
     })
   }
 
-  // firebase에 저장된 데이터를 불러오는 함수
+  // firebase에 저장된 상품 데이터를 불러오는 함수
   export async function getProducts () {
     return get(ref(database, 'products'))
       .then(snapshot => {
@@ -95,6 +91,8 @@ const auth = getAuth();
         return []
       })
   }
+  
+  // 장바구니
   // firebase의 장바구니에 목록을 추가하고 업데이트 하는 함수
   export async function AddUpdateToCart (id, product) {
     return set(ref(database, `carts/${id}/${product.id}`), product)

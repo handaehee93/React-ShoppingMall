@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaDog } from 'react-icons/fa'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { AiFillEdit } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import UserInfo from './UserInfo';
@@ -18,11 +18,12 @@ export default function Navbar() {
   return (
     <header className='flex justify-between border-b border-gray-300 p-4'>
       <Link to='/' className='flex items-center font-semibold text-4xl  text-logo'>
-        <FaDog />
-        <h1>KaKao Dog</h1>
+        <HiOutlineShoppingBag />
+        <h1>Shopping Mall</h1>
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>상품</Link>
+        <div>카테고리</div>
         {user && <Link to='/carts'><Cart /></Link>}
         <Link to='/products/new' className='text-3xl'>
           {user && user.isAdmin && <AiFillEdit />}
