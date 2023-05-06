@@ -1,25 +1,40 @@
 import React from 'react'
+import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { AiFillEdit } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
-import {HiShoppingBag} from 'react-icons/hi'
-import {GiClothes} from 'react-icons/gi'
-import { login } from "../api/firebase";
-// import firebase from '../api/firebase'
+import UserInfo from './UserInfo';
+import Button from './ui/Button';
+import { useAuthContext } from '../context/AuthContext';
+import Cart from './Cart';
+
+
+
 
 export default function Navbar() {
+  // contextProvider에 전달된 props를 받아 온 것
+  const {user, login, logout} = useAuthContext()
+
+
   return (
-    <header className='flex justify-between border-b border-gray-300 p-2'>
-      <Link to='/' className='flex items-center text-3xl text-logo'>
-        <HiShoppingBag />
-        <h1>뉴이어</h1>
+    <header className='flex justify-between border-b border-gray-300 p-4'>
+      <Link to='/' className='flex items-center font-semibold text-4xl  text-logo'>
+        <HiOutlineShoppingBag />
+        <h1>Shopping Mall</h1>
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>상품</Link>
-        <Link to='/carts'>장바구니</Link>
-        <Link to='/products/new' className='text-2xl'>
-          <GiClothes/>
+        <div>카테고리</div>
+        {user && <Link to='/carts'><Cart /></Link>}
+        <Link to='/products/new' className='text-3xl'>
+          {user && user.isAdmin && <AiFillEdit />}
         </Link>
-        <button onClick={login}>Login</button>
+        {/* 로그인된 사용자의 정보는 user라는 state에 담기고, 따라서 user에 값이 있으면 로그인이 된 상태, user에 값이 없으면 로그 아웃 상태 이므로 각각의 상태에 따라 보여지는 ui가 다르게 설정 한 것 */}
+        {user && <UserInfo user={user} />}
+        {!user && <Button text={'Login'} onClick={login} />}
+        {user && <Button text={'Logout'} onClick={logout} />}
       </nav>
     </header>
   )
 }
+
+

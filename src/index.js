@@ -11,6 +11,7 @@ import ProductDetail from './pages/ProductDetail';
 import NewProduct from './pages/NewProduct';
 import MyCart from './pages/MyCart';
 import NotFound from './pages/NotFound';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,22 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {index: true, path: '/', element: <Home />},
-      {path: '/products', element: <AllProducts />},
+      {
+        index: true, 
+        element: <Home />
+      },
+      {
+        path: '/products', 
+        element: <AllProducts />
+      },
       {
         path: '/products/new',
-        element: <NewProduct />
+        element:(
+          // 그냥 requireAdmin만 입력해도 requireAdmin={true}와 똑같다.
+          <ProtectedRoute requireAdmin={true}>
+            <NewProduct />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/products/:id',
@@ -30,11 +42,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/carts',
-        element: <MyCart />,
+        element:(
+        <ProtectedRoute>
+          <MyCart />
+        </ProtectedRoute>
+        ),
       }
     ]
   }
 ])
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -43,7 +60,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
