@@ -82,3 +82,16 @@ const navigate = useNavigate()
 
 
 
+
+// const handleonChange = ChangeEventHandler<HTMLInputElement> = e: => {
+//   const value = e.target.value
+//   const numCheck = test.value
+
+//   if(!numCheck && value) return
+
+//   if(numCheck) {
+//     const numValue = value.replaceAll
+//     value = numValue.toString().replaceAll
+//   }
+//   setValue(value)
+// }
